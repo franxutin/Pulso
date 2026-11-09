@@ -25,15 +25,13 @@ jobs:
           channel: stable
 
       - name: Descargar dependencias
-        working-directory: ./pulso_mvp_flutter-1
         run: flutter pub get
 
       - name: Crear APK
-        working-directory: ./pulso_mvp_flutter-1
         run: flutter build apk --release
 
       - name: Guardar APK
         uses: actions/upload-artifact@v4
         with:
           name: PULSO-APK
-          path: pulso_mvp_flutter-1/build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
