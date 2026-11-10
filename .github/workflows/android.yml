@@ -1,13 +1,5 @@
 
 name: Crear APK de PULSO
-run: 
-flutter build apk --release \
-
---dart-define=SUPABASE_URL=$
-{{ secrets.SUPABASE_URL }} \
-
---dart-define=SUPABASE_ANON_KEY=$
-{{ secrets.SUPABASE_ANON_KEY }}
 
 on:
   workflow_dispatch:
@@ -32,14 +24,17 @@ jobs:
       - name: Preparar proyecto Flutter
         run: |
           mkdir -p lib
-          mv main.dart lib/main.dart
+          if [ -f main.dart ]; then mv main.dart lib/main.dart; fi
           flutter create --platforms=android .
 
       - name: Descargar dependencias
         run: flutter pub get
 
       - name: Crear APK
-        run: flutter build apk --release
+        run: |
+          flutter build apk --release \
+            --dart-define=SUPABASE_URL="${{ secrets.SUPABASE_URL }}" \
+            --dart-define=SUPABASE_ANON_KEY="${{ secrets.SUPABASE_ANON_KEY }}"
 
       - name: Guardar APK
         uses: actions/upload-artifact@v4
