@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() => runApp(const PulsoApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: const String.fromEnvironment('SUPABASE_URL'),
+    publishableKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
+  );
+  runApp(const PulsoApp());
+}
 
 class PulsoApp extends StatelessWidget {
   const PulsoApp({super.key});
