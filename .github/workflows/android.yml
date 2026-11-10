@@ -28,7 +28,7 @@ jobs:
 
       - name: Preparar proyecto Flutter
         working-directory: pulso_mvp_flutter-1
-        run: flutter create --platforms=android --org com.pulso.app .
+        run: flutter create --project-name pulso --platforms=android --org com.pulso.app .
 
       - name: Descargar dependencias
         working-directory: pulso_mvp_flutter-1
